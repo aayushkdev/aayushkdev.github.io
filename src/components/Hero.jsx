@@ -65,7 +65,7 @@ const Hero = () => {
             href="https://github.com/aayushkdev"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-white transition-all"
+            className="hover:text-indigo-400 transition-all"
             whileHover={{ scale: 1.2 }}
             transition={{ duration: 0 }} // Instantly scales up
           >
@@ -73,7 +73,7 @@ const Hero = () => {
           </motion.a>
           <motion.a
             href="mailto:aayush214.kumar@gmail.com"
-            className="hover:text-white transition-all"
+            className="hover:text-indigo-400 transition-all"
             whileHover={{ scale: 1.2 }}
             transition={{ duration: 0 }} // Instantly scales up
           >
@@ -83,7 +83,7 @@ const Hero = () => {
             href="https://www.linkedin.com/in/aayushkdev/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-white transition-all"
+            className="hover:text-indigo-400 transition-all"
             whileHover={{ scale: 1.2 }}
             transition={{ duration: 0 }} // Instantly scales up
           >
