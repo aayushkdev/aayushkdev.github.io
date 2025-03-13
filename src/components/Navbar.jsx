@@ -9,7 +9,6 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-black bg-transparent text-white py-4 px-6 flex justify-between items-center z-50">
-      {/* Logo - Scrolls to Hero */}
       <Link
         to="hero"
         smooth={true}
@@ -20,7 +19,6 @@ const Navbar = () => {
         <span className="text-white">Aayush</span>
       </Link>
 
-      {/* Desktop Menu */}
       <ul className="hidden md:flex space-x-6 text-lg">
         {["About", "Projects", "Contact"].map((item) => (
           <li key={item}>
@@ -36,12 +34,10 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Mobile Menu Button */}
       <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden">
         <img src={menuOpen ? closeIcon : menuIcon} alt="menu" className="w-8 h-8" />
       </button>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
