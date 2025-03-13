@@ -4,8 +4,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import menuIcon from "../assets/menuIcon.png";
 import closeIcon from "../assets/closeIcon.png";
 
-const Navbar = () => {
+const Navbar = ({ setTerminalMode, terminalMode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // If in Terminal Mode, show only the "Go Back" button
+  if (terminalMode) {
+    return (
+      <nav className="fixed top-0 left-0 w-full bg-black bg-transparent text-white py-4 px-6 flex justify-end z-50">
+        <button
+          onClick={() => setTerminalMode(false)}
+          className="bg-red-500 px-4 py-2 rounded-lg text-sm hover:bg-red-400 transition-all"
+        >
+          Go Back to Regular Mode
+        </button>
+      </nav>
+    );
+  }
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-black bg-transparent text-white py-4 px-6 flex justify-between items-center z-50">
@@ -19,7 +33,7 @@ const Navbar = () => {
         <span className="text-white">Aayush</span>
       </Link>
 
-      <ul className="hidden md:flex space-x-6 text-lg">
+      <ul className="hidden md:flex items-center space-x-6 text-lg">
         {["About", "Projects", "Contact"].map((item) => (
           <li key={item}>
             <Link
@@ -32,6 +46,16 @@ const Navbar = () => {
             </Link>
           </li>
         ))}
+        
+        <button
+          onClick={() => setTerminalMode(true)}
+          className="bg-gray-800 text-white border border-gray-500 px-5 py-2 rounded-md 
+                    font-mono text-sm hover:bg-gray-700 hover:border-gray-300 
+                    transition-all duration-200 ease-in-out"
+        >
+          Advanced mode
+        </button>
+
       </ul>
 
       <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden">
@@ -58,6 +82,16 @@ const Navbar = () => {
                 {item}
               </Link>
             ))}
+            {/* Terminal Mode Button for Mobile */}
+            <button
+              onClick={() => {
+                setTerminalMode(true);
+                setMenuOpen(false);
+              }}
+              className="bg-gray-800 px-4 py-2 rounded-lg text-sm hover:bg-gray-700 transition-all"
+            >
+              For Arch Users
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
