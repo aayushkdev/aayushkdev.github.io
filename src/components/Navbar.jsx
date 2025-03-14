@@ -90,7 +90,7 @@ const Navbar = ({ setTerminalMode, terminalMode }) => {
               }}
               className="bg-gray-800 px-4 py-2 rounded-lg text-sm hover:bg-gray-700 transition-all"
             >
-              For Arch Users
+              Advanced mode
             </button>
           </motion.div>
         )}

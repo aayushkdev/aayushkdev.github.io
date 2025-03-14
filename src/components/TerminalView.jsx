@@ -3,7 +3,9 @@ import { fileSystem, fileContents } from "../data/filesystem";
 
 
 const TerminalView = () => {
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState([
+    { command: "", output: "Welcome to Aayush's Terminal Portfolio!\nType 'help' to see the list of available commands." }
+  ]);
   const [input, setInput] = useState("");
   const [currentPath, setCurrentPath] = useState("~");
   const terminalRef = useRef(null);
@@ -75,7 +77,7 @@ const TerminalView = () => {
         break;
         
       case "sudo":
-        output = "sudo: You're not a Arch Linux user. Request denied.";
+        output = "You think sudo will work here? That's cute. 🤣";
         break;
 
       case "rm":
@@ -145,10 +147,12 @@ const TerminalView = () => {
         <div ref={terminalRef} className="p-4 text-left font-mono text-gray-300 overflow-y-auto h-[400px]">
           {history.map((entry, index) => (
             <div key={index} className="mb-2">
-              <p className="text-indigo-400">
-                aayush@portfolio:<span className="text-green-400">{entry.path}</span>$ {entry.command}
-              </p>
-              <p>{entry.output}</p>
+              {entry.command && (
+                <p className="text-indigo-400">
+                  aayush@portfolio:<span className="text-green-400">{entry.path || "~"}</span>$ {entry.command}
+                </p>
+              )}
+              <p className="whitespace-pre-line">{entry.output}</p>
             </div>
           ))}
 
