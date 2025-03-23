@@ -3,7 +3,7 @@
 Welcome to my personal portfolio website! This is where I showcase my projects, skills, and experience.  
 
 ## 🔗 Live Demo  
-[View Website](https://aayushkdev.github.io/portfolio/)  
+[View Website](https://aayushkdev.github.io/)  
 
 ---
 
