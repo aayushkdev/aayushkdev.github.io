@@ -30,7 +30,7 @@ const TerminalView = () => {
     let output;
     const parts = cmd.split(" ");
     const command = parts[0];
-    const argument = parts[1];
+    const argument = parts.slice(1).join(" ");
     let newPath = currentPath;
 
     switch (command) {
@@ -48,15 +48,11 @@ const TerminalView = () => {
         if (!argument) {
           output = "cd: missing argument";
         } else if (argument === "..") {
-          if (currentPath !== "~") {
-            newPath = "~";
-          }
+          const pathParts = currentPath.split("/");
+          pathParts.pop();
+          newPath = pathParts.length ? pathParts.join("/") : "~";
         } else if (fileSystem[currentPath]?.includes(argument)) {
-          if (fileSystem[argument]) {
-            newPath = `~/${argument}`;
-          } else {
-            output = `cd: ${argument}: Not a directory`;
-          }
+          newPath = `${currentPath}/${argument}`;
         } else {
           output = `cd: ${argument}: No such file or directory`;
         }
@@ -67,12 +63,9 @@ const TerminalView = () => {
           output = "cat: missing filename";
         } else {
           const fullPath = `${currentPath}/${argument}`.replace("~/", "");
-          if (fileContents[fullPath]) {
-            output = fileContents[fullPath].split("\n").map((line, i) => <p key={i}>{line}</p>);
-            //output = <div dangerouslySetInnerHTML={{ __html: fileContents[fullPath] }} />;
-          } else {
-            output = `cat: ${argument}: No such file`;
-          }
+          output = fileContents[fullPath]
+            ? fileContents[fullPath].split("\n").map((line, i) => <p key={i}>{line}</p>)
+            : `cat: ${argument}: No such file`;
         }
         break;
         
@@ -81,11 +74,11 @@ const TerminalView = () => {
         break;
 
       case "rm":
-        output = `rm: cannot remove this file/folder: Permission denied`;
+        output = "rm: cannot remove this file/folder: Permission denied";
         break;
 
       case "echo":
-        output = output = parts.slice(1).join(" ");
+        output = argument;
         break;
 
       case "pwd":
@@ -93,7 +86,7 @@ const TerminalView = () => {
         break;
 
       case "clear":
-        setHistory([]);
+        setHistory([{ command: "", output: "Welcome to Aayush's Terminal Portfolio!\nType 'help' to see the list of available commands." }]);
         return;
 
       case "uname":
@@ -101,21 +94,21 @@ const TerminalView = () => {
         break;
 
       case "help":
-        output = (
-          <>
-            Available commands: <br />
-            - <strong>whoami</strong> → Displays information about me.<br />
-            - <strong>ls</strong> → Lists contents of the current directory.<br />
-            - <strong>cd [directory]</strong> → Changes the current directory.<br />
-            - <strong>cat [file]</strong> → Displays the contents of a file.<br />
-            - <strong>pwd</strong> → Shows the current directory path.<br />
-            - <strong>echo [text]</strong> → Prints the given text.<br />
-            - <strong>sudo [command]</strong> → Attempts to run a command with superuser privileges.<br />
-            - <strong>rm [file]</strong> → Deletes a file/folder.<br />
-            - <strong>clear</strong> → Clears the terminal screen.<br />
-            - <strong>exit</strong> → Exits the terminal.<br />
-          </>
-        );
+        const commands = {
+          whoami: "Displays information about me.",
+          ls: "Lists contents of the current directory.",
+          cd: "Changes the current directory.",
+          cat: "Displays the contents of a file.",
+          pwd: "Shows the current directory path.",
+          echo: "Prints the given text.",
+          sudo: "Attempts to run a command with superuser privileges.",
+          rm: "Deletes a file/folder.",
+          clear: "Clears the terminal screen.",
+          exit: "Exits the terminal."
+        };
+        output = Object.entries(commands)
+          .map(([cmd, desc]) => `- ${cmd}: ${desc}`)
+          .join("\n");
         break;
 
       case "exit":
@@ -126,7 +119,7 @@ const TerminalView = () => {
         output = `bash: ${cmd}: command not found`;
     }
 
-    setHistory([...history, { command: cmd, output, path: currentPath }]);
+    setHistory(prev => [...prev, { command: cmd, output, path: currentPath }]);
     setCurrentPath(newPath);
   };
 
@@ -143,7 +136,6 @@ const TerminalView = () => {
           </span>
         </div>
 
-
         <div ref={terminalRef} className="p-4 text-left font-mono text-gray-300 overflow-y-auto h-[400px]">
           {history.map((entry, index) => (
             <div key={index} className="mb-2">
@@ -155,7 +147,6 @@ const TerminalView = () => {
               <p className="whitespace-pre-line">{entry.output}</p>
             </div>
           ))}
-
 
           <div className="flex items-center">
             <span className="text-indigo-400">
