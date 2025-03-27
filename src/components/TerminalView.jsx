@@ -40,7 +40,7 @@ const TerminalView = () => {
 
       case "ls":
         output = fileSystem[currentPath.replace("~/", "")]?.map(item => (
-          <span key={item} className="text-green-400">{item} </span>
+          <span key={item} className="text-green-400">{item}&nbsp;&nbsp;</span>
         )) || "No such directory";
         break;
 
@@ -141,7 +141,7 @@ const TerminalView = () => {
             <div key={index} className="mb-2">
               {entry.command && (
                 <p className="text-indigo-400">
-                  aayush@portfolio:<span className="text-green-400">{entry.path || "~"}</span>$ {entry.command}
+                  aayush@portfolio<span className="text-white">:</span><span className="text-green-400">{entry.path || "~"}</span><span className="text-white">$</span> <span className="text-white">{entry.command}</span>
                 </p>
               )}
               <p className="whitespace-pre-line">{entry.output}</p>
@@ -150,7 +150,7 @@ const TerminalView = () => {
 
           <div className="flex items-center">
             <span className="text-indigo-400">
-              aayush@portfolio:<span className="text-green-400">{currentPath}</span>$
+              aayush@portfolio<span className="text-white">:</span><span className="text-green-400">{currentPath}</span><span className="text-white">$</span>
             </span>
             <input
               ref={inputRef}

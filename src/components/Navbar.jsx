@@ -13,7 +13,7 @@ const Navbar = ({ setTerminalMode, terminalMode }) => {
       <nav className="fixed top-0 left-0 w-full bg-black bg-transparent text-white py-4 px-6 flex justify-end z-50">
         <button
           onClick={() => setTerminalMode(false)}
-          className="bg-red-500 px-4 py-2 rounded-lg text-sm hover:bg-red-400 transition-all"
+          className="bg-red-500 px-4 py-2 rounded-lg text-sm hover:bg-red-400 transition-all cursor-pointer"
         >
           Go Back to Regular Mode
         </button>
@@ -51,7 +51,7 @@ const Navbar = ({ setTerminalMode, terminalMode }) => {
           onClick={() => setTerminalMode(true)}
           className="bg-gray-800 text-white border border-gray-500 px-5 py-2 rounded-md 
                     font-mono text-sm hover:bg-gray-700 hover:border-gray-300 
-                    transition-all duration-200 ease-in-out"
+                    transition-all duration-200 ease-in-out cursor-pointer"
         >
           Advanced mode
         </button>
@@ -88,7 +88,7 @@ const Navbar = ({ setTerminalMode, terminalMode }) => {
                 setTerminalMode(true);
                 setMenuOpen(false);
               }}
-              className="bg-gray-800 px-4 py-2 rounded-lg text-sm hover:bg-gray-700 transition-all"
+              className="bg-gray-800 px-4 py-2 rounded-lg text-sm hover:bg-gray-700 transition-all cursor-pointer"
             >
               Advanced mode
             </button>
